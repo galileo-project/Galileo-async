@@ -7,7 +7,7 @@ static void _async_done();
 static _wrapper_data_t *wrapper_data_new(async_f, void*);
 
 /***********************************
-*         Wrapper function           *
+*         Wrapper function         *
 ************************************/
 
 static _wrapper_data_t *wrapper_data_new(async_f func, void *data) {
