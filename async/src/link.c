@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include "link.h"
 
+/****************************
+*       Node function       *
+*****************************/
+
 node_t *node_new(void *data) {
     node_t *node = (node_t*)malloc(sizeof(node_t));
     if(node == NULL)
@@ -12,6 +16,17 @@ node_t *node_new(void *data) {
     
     return node;
 }
+
+node_t *node_next(node_t *node) {
+    if(node == NULL)
+        return NULL;
+        
+    return node->next;
+}
+
+/****************************
+*       Link function       *
+*****************************/
 
 link_t *link_new() {
     link_t *link = (link_t*)malloc(sizeof(link_t))

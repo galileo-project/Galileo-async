@@ -8,6 +8,7 @@ typedef struct node_s {
 } node_t;
 
 node_t *node_new(void*);
+node_t *node_next(node_t*);
 
 typedef struct link_s {
     node_t *header;
