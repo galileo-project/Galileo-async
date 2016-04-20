@@ -8,29 +8,28 @@ typedef struct node_s node_t;
 typedef struct link_s link_t;
 typedef struct async_s async_t;
 
-typedef struct _wrapper_data_s {
+typedef struct _task_s {
     async_f  func;
     void    *data;
-    async_t *async;
-} _wrapper_data_t;
+} _task_t;
 
 typedef struct async_s {
     pthread_mutex_t  _lock;
+    pthread_cond_t   _ready;
+    pthread_t       *_threadid;
     link_t          *_result;
-    link_t          *_pids;
+    link_t          *_tasks;
+    int              _shutdown;
+    size_t           _max_thread_mun;
 } async_t;
 
 
-async_t    *async_new();
+async_t    *async_new(size_t);
 int         async_run(async_t*, async_f, void*);
-int         async_exit(async_t*);
+int         async_destroy(async_t*);
 
-pthread_t  *async_pids_head(astnc_t*);
-pthread_t  *async_pids_tail(astnc_t*);
-size_t      async_pids_len(astnc_t*);
-
-node_t     *async_ret_head(astnc_t*);
-node_t     *async_ret_tail(astnc_t*);
-size_t      async_ret_len(astnc_t*);
+node_t     *async_ret_head(async_t*);
+node_t     *async_ret_tail(async_t*);
+size_t      async_ret_len(async_t*);
 
 #endif //ASYNC_ASYNC_H_
